@@ -4,14 +4,17 @@
 localpath=$(pwd)
 echo "Local path: $localpath"
 
-temppath="$localpath/temp"
-echo "Temporal path: $temppath"
-cd $temppath;
+downloadpath="$localpath/download"
+echo "Download path: $downloadpath"
+cd $downloadpath;
 
-files=(*)
-unzip "$temppath/$files"
+zipfile=(*)
+echo $zipfile
+unzip "$downloadpath/$zipfile"
+
+tsv_file=$(ls | grep ".tsv$")
+echo $tsv_file
 
 # run convertion to parquet
-cd "./../";
-filename="${files%.*}"
-python3 "bindingDB2parquet.py $temppath/$filename ./brick.parquet"
+cd $localpath
+python ./stages/bindingDB2parquet.py $downloadpath/$tsv_file ./bindingDB.parquet

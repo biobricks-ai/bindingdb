@@ -5,10 +5,10 @@
 localpath=$(pwd)
 echo "Local path: $localpath"
 
-temppath="$localpath/temp"
-echo "Temporal path: $temppath"
-mkdir -p $temppath
-cd $temppath;
+downloadpath="$localpath/download"
+echo "Download path: $downloadpath"
+mkdir -p "$downloadpath"
+cd $downloadpath;
 
 # download file
 file2download="BindingDB_All_2022m8.tsv.zip" # need to be chamge with new version

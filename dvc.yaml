@@ -7,13 +7,13 @@ stages:
     deps:
       - stages/1_download.sh
     outs:
-      - temp
+      - download
 
   brick:
     cmd: bash stages/2_unzip_build.sh 
     deps: 
-      - temp
+      - download
       - stages/2_unzip_build.sh
       - stages/bindingDB2parquet.py
     outs:
-      - brick
+      - bindingDB.parquet

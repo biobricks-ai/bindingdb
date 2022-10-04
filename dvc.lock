@@ -10,3 +10,32 @@ stages:
     - path: data/mtcars.parquet
       md5: 77cf29accf9535522fad7db1486eff9a
       size: 6243
+  download:
+    cmd: bash stages/1_download.sh
+    deps:
+    - path: stages/1_download.sh
+      md5: 49d60bc2298376830c9122b6948e85e9
+      size: 382
+    outs:
+    - path: download
+      md5: b79723eaca61a88a90ec46d4482f7b86.dir
+      size: 417326199
+      nfiles: 1
+  brick:
+    cmd: bash stages/2_unzip_build.sh
+    deps:
+    - path: download
+      md5: ac57b41cd67858f9806bd4984d8ee37d.dir
+      size: 5355450283
+      nfiles: 2
+    - path: stages/2_unzip_build.sh
+      md5: 3fc1b4137fecc197f83992741f3e2a99
+      size: 397
+    - path: stages/bindingDB2parquet.py
+      md5: 960f503f3462a1dded93ffb087586af0
+      size: 442
+    outs:
+    - path: bindingDB.parquet
+      md5: d5dbbc90a9b69088bae0be101a5f4ea9.dir
+      size: 1165895923
+      nfiles: 3

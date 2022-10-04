@@ -1,12 +1,18 @@
+from os import mkdir
 import pandas as pd
 import sys
 
 
 InFileName = sys.argv[1]
-OutFileName = sys.argv[2]
+OutDirName = sys.argv[2]
 
-#open file
-df = pd.read_fwf(InFileName, sep='\t')
+# create folder with parquet 
+mkdir(OutDirName)
 
-#convert to parquet
-df.to_parquet(OutFileName)
+#read and convert in chunck
+i_name_parquet = 1
+chunksize = 10 ** 6
+with pd.read_fwf(InFileName, chunksize=chunksize,  sep='\t') as reader:
+    for chunk in reader:
+        chunk.to_parquet("%s/bindingDB%s.parquet"%(OutDirName, i_name_parquet))
+        i_name_parquet = i_name_parquet + 1

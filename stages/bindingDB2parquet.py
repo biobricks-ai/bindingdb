@@ -6,9 +6,6 @@ import sys
 InFileName = sys.argv[1]
 OutDirName = sys.argv[2]
 
-# create folder with parquet 
-mkdir(OutDirName)
-
 #read and convert in chunck
 i_name_parquet = 1
 chunksize = 10 ** 6

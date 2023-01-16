@@ -11,7 +11,7 @@ stages:
       md5: 77cf29accf9535522fad7db1486eff9a
       size: 6243
   download:
-    cmd: bash stages/1_download.sh
+    cmd: stages/1_download.sh
     deps:
     - path: stages/1_download.sh
       md5: 49d60bc2298376830c9122b6948e85e9
@@ -38,4 +38,22 @@ stages:
     - path: bindingDB.parquet
       md5: d5dbbc90a9b69088bae0be101a5f4ea9.dir
       size: 1165895923
+      nfiles: 3
+  build:
+    cmd: stages/2_build.sh
+    deps:
+    - path: download
+      md5: ac57b41cd67858f9806bd4984d8ee37d.dir
+      size: 5355450283
+      nfiles: 2
+    - path: stages/2_build.sh
+      md5: ed34b34341c3f70469c3b0ea44e0c5d7
+      size: 492
+    - path: stages/bindingDB2parquet.py
+      md5: 5368e669b8a7f5ee944c462bc1288f39
+      size: 393
+    outs:
+    - path: brick
+      md5: 6c2d18178836c23cbed8e89b7162714b.dir
+      size: 1165895929
       nfiles: 3

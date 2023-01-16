@@ -1,19 +1,18 @@
 # Brick BindingDB
 # see https://dvc.org/doc/user-guide/project-structure/dvcyaml-files#pipelines-files-dvcyaml
+
 stages:
-  
   download:
-    cmd: bash stages/1_download.sh 
+    cmd: stages/1_download.sh 
     deps:
       - stages/1_download.sh
     outs:
       - download
-
-  brick:
-    cmd: bash stages/2_unzip_build.sh 
-    deps: 
-      - download
-      - stages/2_unzip_build.sh
+  build: 
+    cmd: stages/2_build.sh
+    deps:
+      - stages/2_build.sh
       - stages/bindingDB2parquet.py
+      - download
     outs:
-      - bindingDB.parquet
+      - brick

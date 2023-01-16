@@ -17,4 +17,10 @@ echo $tsv_file
 
 # run convertion to parquet
 cd $localpath
-python ./stages/bindingDB2parquet.py $downloadpath/$tsv_file ./bindingDB.parquet
+
+# make brick folder
+brickpath="$localpath/brick"
+echo "Brick path: $brickpath"
+mkdir -p "$brickpath"
+
+python3 ./stages/bindingDB2parquet.py $downloadpath/$tsv_file $brickpath

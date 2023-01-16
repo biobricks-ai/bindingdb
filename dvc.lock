@@ -50,10 +50,10 @@ stages:
       md5: ed34b34341c3f70469c3b0ea44e0c5d7
       size: 492
     - path: stages/bindingDB2parquet.py
-      md5: 5368e669b8a7f5ee944c462bc1288f39
-      size: 393
+      md5: aac2d93b7e73d633c08bbc0fa7de9b22
+      size: 435
     outs:
     - path: brick
-      md5: 6c2d18178836c23cbed8e89b7162714b.dir
-      size: 1165895929
+      md5: c513b8d278a47c3f6fa784fbb1b3694a.dir
+      size: 577488052
       nfiles: 3

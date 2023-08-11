@@ -3,16 +3,15 @@
 
 stages:
   download:
-    cmd: stages/1_download.sh 
+    cmd: src/1_download.sh 
     deps:
-      - stages/1_download.sh
+      - src/1_download.sh
     outs:
       - download
   build: 
-    cmd: stages/2_build.sh
+    cmd: Rscript src/2_build.R
     deps:
-      - stages/2_build.sh
-      - stages/bindingDB2parquet.py
+      - src/2_build.R
       - download
     outs:
-      - brick
+      - brick/bindingdb.parquet

@@ -1,17 +1,9 @@
 #!/usr/bin/env bash
 
-# Download file
+downloadlink=$(cat download/download_link.txt)
+echo "Downloading MySQL DB from $downloadlink" 
+wget "https://www.bindingdb.org/bind/BDB_my-202307.tar" -O "download/mysql.tar"
 
-localpath=$(pwd)
-echo "Local path: $localpath"
-
-downloadpath="$localpath/download"
-echo "Download path: $downloadpath"
-mkdir -p "$downloadpath"
-
-# download file
-file2download="BindingDB_All_2022m8.tsv.zip" # need to be changed with the new version
-url_file="https://www.bindingdb.org/bind/downloads/$file2download"
-
-# wget file to bindingdb_all.tsv.zip
-wget "$url_file" -O "$downloadpath/bindingdb_all.tsv.zip"
+# import dumped file
+mkdir -p download/sqldump
+tar -xvf ./download/mysql.tar -C ./download/sqldump

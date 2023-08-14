@@ -1,33 +1,34 @@
 schema: '2.0'
 stages:
   download:
-    cmd: src/1_download.sh
+    cmd: bash src/1_download.sh
     deps:
-    - path: src/1_download.sh
+    - path: download/download_link.txt
       hash: md5
-      md5: 27b51fce5ebc390006a710fc710a564a
-      size: 449
+      md5: 037b9baabd309c5ee4a1da3b3b34c2d5
+      size: 64
     outs:
-    - path: download
+    - path: download/mysql.tar
       hash: md5
-      md5: 11050439ebd0a1ca24144668af3d03be.dir
-      size: 417326199
-      nfiles: 1
+      md5: 4c6d626b63ad1f4fd4db7ebbba379746
+      size: 6284820480
   build:
-    cmd: Rscript src/2_build.R
+    cmd: Rscript src/2_build_parquet.R
     deps:
-    - path: download
+    - path: download/mysql.tar
       hash: md5
-      md5: 11050439ebd0a1ca24144668af3d03be.dir
-      size: 417326199
-      nfiles: 1
-    - path: src/2_build.R
-      hash: md5
-      md5: 974a5aef2c12a19e274e44d2aae87754
-      size: 305
+      md5: 4c6d626b63ad1f4fd4db7ebbba379746
+      size: 6284820480
     outs:
-    - path: brick/bindingdb.parquet
+    - path: brick
       hash: md5
-      md5: e0a70f9b08c5bff091db4abcf0a316bd.dir
-      size: 352999644
-      nfiles: 3
+      md5: dc5b7f08f4df2fc75591c503e7adba43.dir
+      size: 1279956704
+      nfiles: 32
+  scrape:
+    cmd: bash src/0_scrape.sh
+    outs:
+    - path: download/download_link.txt
+      hash: md5
+      md5: 037b9baabd309c5ee4a1da3b3b34c2d5
+      size: 64

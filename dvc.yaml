@@ -2,6 +2,8 @@
 # see https://dvc.org/doc/user-guide/project-structure/dvcyaml-files#pipelines-files-dvcyaml
 
 stages:
+  
+  # download & transform the binding db mysql dump
   scrape:
     cmd: bash src/0_scrape.sh
     outs: 
@@ -17,4 +19,19 @@ stages:
     deps:
       - download/mysql.tar
     outs:
-      - brick
+      - brick/mysql_dump
+
+  # download & transform the binding db tsv dump
+  download_tsv:
+    cmd: bash src/3_download_tsv.sh
+    deps:
+      - download/download_link.txt
+    outs:
+      - download/bdb.tsv.zip
+  build_tsv_parquet:
+    cmd: Rscript src/4_build_tsv_download_parquet.R
+    deps:
+      - download/bdb.tsv.zip
+      - src/4_build_tsv_download_parquet.R
+    outs:
+      - brick/full_tsv_dump.parquet

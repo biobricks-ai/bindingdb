@@ -18,9 +18,9 @@ sysglue("docker exec -it {container_name} mysql -uroot -ppw bindingdb -e 'source
 con <- dbConnect(RMySQL::MySQL(), dbname = 'bindingdb', host = '127.0.0.1', port = 3306, user = 'root', password = 'pw')
 withr::defer({ dbDisconnect(con) })
 
-dir.create("brick/", recursive = TRUE)
+dir.create("brick/mysql_dump/", recursive = TRUE)
 sapply(dbListTables(con), function(table_name) {
   print(table_name)
   df <- dbReadTable(con, table_name)
-  write_dataset(df, paste0("brick/", table_name, ".parquet"))
+  write_dataset(df, paste0("brick/mysql_dump/", table_name, ".parquet"))
 })

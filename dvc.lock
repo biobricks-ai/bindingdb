@@ -5,8 +5,8 @@ stages:
     deps:
     - path: download/download_link.txt
       hash: md5
-      md5: 037b9baabd309c5ee4a1da3b3b34c2d5
-      size: 64
+      md5: d729acd274aea359c0cedffb5f50406c
+      size: 41
     outs:
     - path: download/mysql.tar
       hash: md5
@@ -20,7 +20,7 @@ stages:
       md5: 4c6d626b63ad1f4fd4db7ebbba379746
       size: 6284820480
     outs:
-    - path: brick
+    - path: brick/mysql_dump
       hash: md5
       md5: dc5b7f08f4df2fc75591c503e7adba43.dir
       size: 1279956704
@@ -30,5 +30,34 @@ stages:
     outs:
     - path: download/download_link.txt
       hash: md5
-      md5: 037b9baabd309c5ee4a1da3b3b34c2d5
-      size: 64
+      md5: d729acd274aea359c0cedffb5f50406c
+      size: 41
+  download_tsv:
+    cmd: bash src/3_download_tsv.sh
+    deps:
+    - path: download/download_link.txt
+      hash: md5
+      md5: d729acd274aea359c0cedffb5f50406c
+      size: 41
+    outs:
+    - path: download/bdb.tsv.zip
+      hash: md5
+      md5: 7943b198226e7ce653572feec9e56ef6
+      size: 471398593
+  build_tsv_parquet:
+    cmd: Rscript src/4_build_tsv_download_parquet.R
+    deps:
+    - path: download/bdb.tsv.zip
+      hash: md5
+      md5: 7943b198226e7ce653572feec9e56ef6
+      size: 471398593
+    - path: src/4_build_tsv_download_parquet.R
+      hash: md5
+      md5: 3fc4b06e0887b420876f20f64fd0f7fc
+      size: 634
+    outs:
+    - path: brick/full_tsv_dump.parquet
+      hash: md5
+      md5: a0d9679a4d6dee5f1b0ffa237febb95a.dir
+      size: 446961451
+      nfiles: 1
